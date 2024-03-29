@@ -33,7 +33,7 @@ void HsmOnStart(Hsm *me) {
         for (s = me->next; s != me->curr; s = s->super) {
             *(++trace) = s;                         /* trace path to target */
         }
-        while (s = *trace--) {                 /* retrace entry from source */
+        while ( (s = *trace--) ) {                 /* retrace entry from source */
             StateOnEvent(s, me, &entryMsg);
         }
         me->curr = me->next;
@@ -56,7 +56,7 @@ void HsmOnEvent(Hsm *me, Msg const *msg) {
                 for (s = me->next; s != me->curr; s = s->super) {
                     *(++trace) = s;                 /* trace path to target */
                 }
-                while (s = *trace--) {            /* retrace entry from LCA */
+                while ( (s = *trace--) ) {            /* retrace entry from LCA */
                     StateOnEvent(s, me, &entryMsg);
                 }
                 me->curr = me->next;
@@ -67,7 +67,7 @@ void HsmOnEvent(Hsm *me, Msg const *msg) {
                     for (s = me->next; s != me->curr; s = s->super) {
                         *(++trace) = s;            /* record path to target */
                     }
-                    while (s = *trace--) {             /* retrace the entry */
+                    while ( (s = *trace--) ) {             /* retrace the entry */
                         StateOnEvent(s, me, &entryMsg);
                     }
                     me->curr = me->next;
